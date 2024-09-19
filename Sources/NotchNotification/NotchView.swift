@@ -51,7 +51,12 @@ struct NotchView: View {
     var notch: some View {
         Rectangle()
             .foregroundStyle(.black)
-            .mask(notchBackgroundMaskGroup)
+            .clipShape(
+                NotchRectangle(
+                    topCornerRadius: vm.cornerRadius * 0.6, 
+                    bottomCornerRadius: vm.cornerRadius
+                )
+            )
             .frame(
                 width: notchSize.width + vm.cornerRadius * 2,
                 height: notchSize.height
@@ -62,52 +67,64 @@ struct NotchView: View {
             )
     }
 
-    var notchBackgroundMaskGroup: some View {
-        Rectangle()
-            .foregroundStyle(.black)
-            .frame(
-                width: notchSize.width,
-                height: notchSize.height
-            )
-            .clipShape(.rect(
-                bottomLeadingRadius: vm.cornerRadius,
-                bottomTrailingRadius: vm.cornerRadius
-            ))
-            .overlay {
-                ZStack(alignment: .topTrailing) {
-                    Rectangle()
-                        .frame(width: vm.cornerRadius, height: vm.cornerRadius)
-                        .foregroundStyle(.black)
-                    Rectangle()
-                        .clipShape(.rect(topTrailingRadius: vm.cornerRadius))
-                        .foregroundStyle(.white)
-                        .frame(
-                            width: vm.cornerRadius,
-                            height: vm.cornerRadius
-                        )
-                        .blendMode(.destinationOut)
-                }
-                .compositingGroup()
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .offset(x: -vm.cornerRadius + 0.5, y: -0.5)
-            }
-            .overlay {
-                ZStack(alignment: .topLeading) {
-                    Rectangle()
-                        .frame(width: vm.cornerRadius, height: vm.cornerRadius)
-                        .foregroundStyle(.black)
-                    Rectangle()
-                        .clipShape(.rect(topLeadingRadius: vm.cornerRadius))
-                        .foregroundStyle(.white)
-                        .frame(
-                            width: vm.cornerRadius,
-                            height: vm.cornerRadius
-                        )
-                        .blendMode(.destinationOut)
-                }
-                .compositingGroup()
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                .offset(x: vm.cornerRadius - 0.5, y: -0.5)
-            }
+    struct NotchRectangle: Shape {
+
+        var topCornerRadius: CGFloat
+        var bottomCornerRadius: CGFloat
+
+        func path(in rect: CGRect) -> Path {
+            var path = Path()
+
+            // Define the points for the rounded rectangle
+            let tl = CGPoint(x: rect.minX, y: rect.minY)
+            let tr = CGPoint(x: rect.maxX, y: rect.minY)
+            let bl = CGPoint(x: rect.minX, y: rect.maxY)
+            let br = CGPoint(x: rect.maxX, y: rect.maxY)
+
+            let bottomFactor: CGFloat = 0.36
+            let topFactor: CGFloat = 0.32
+
+            let brCtrlPoint1 = CGPoint(x: br.x - topCornerRadius, y: br.y - bottomCornerRadius * bottomFactor)
+            let brCtrlPoint2 = CGPoint(x: br.x - topCornerRadius - bottomCornerRadius * bottomFactor, y: br.y)
+
+            let blCtrlPoint1 = CGPoint(x: bl.x + topCornerRadius + bottomCornerRadius * bottomFactor, y: bl.y)
+            let blCtrlPoint2 = CGPoint(x: bl.x + topCornerRadius, y: bl.y - bottomCornerRadius * bottomFactor)
+
+            let trCtrlPoint1 = CGPoint(x: tr.x - topCornerRadius + topCornerRadius * topFactor, y: tr.y)
+            let trCtrlPoint2 = CGPoint(x: tr.x - topCornerRadius, y: tr.y + topCornerRadius * topFactor)
+
+            let tlCtrlPoint1 = CGPoint(x: tl.x + topCornerRadius, y: tr.y + topCornerRadius * topFactor)
+            let tlCtrlPoint2 = CGPoint(x: tl.x + topCornerRadius - topCornerRadius * topFactor, y: tr.y)
+
+            path.move(to: tl)
+            path.addLine(to: tr)  // Top edge
+
+            path.addCurve(
+                to: CGPoint(x: tr.x - topCornerRadius, y: tr.y + topCornerRadius),
+                control1: trCtrlPoint1,
+                control2: trCtrlPoint2)
+
+            path.addLine(to: CGPoint(x: br.x - topCornerRadius, y: br.y - bottomCornerRadius))
+
+            path.addCurve(
+                to: CGPoint(x: br.x - topCornerRadius - bottomCornerRadius, y: br.y),
+                control1: brCtrlPoint1,
+                control2: brCtrlPoint2)
+
+            path.addLine(to: CGPoint(x: bl.x + topCornerRadius + bottomCornerRadius, y: bl.y))
+
+            path.addCurve(
+                to: CGPoint(x: bl.x + topCornerRadius, y: bl.y - bottomCornerRadius),
+                control1: blCtrlPoint1,
+                control2: blCtrlPoint2)
+
+            path.addLine(to: CGPoint(x: tl.x + topCornerRadius, y: tl.y + topCornerRadius))
+
+            path.addCurve(to: tl, control1: tlCtrlPoint1, control2: tlCtrlPoint2)
+
+            path.closeSubpath()
+
+            return path
+        }
     }
 }
