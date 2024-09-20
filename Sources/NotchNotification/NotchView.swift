@@ -53,7 +53,7 @@ struct NotchView: View {
             .foregroundStyle(.black)
             .clipShape(
                 NotchRectangle(
-                    topCornerRadius: vm.cornerRadius * 0.6, 
+                    topCornerRadius: vm.cornerRadius * 0.6,
                     bottomCornerRadius: vm.cornerRadius
                 )
             )
@@ -68,7 +68,6 @@ struct NotchView: View {
     }
 
     struct NotchRectangle: Shape {
-
         var topCornerRadius: CGFloat
         var bottomCornerRadius: CGFloat
 
@@ -97,26 +96,29 @@ struct NotchView: View {
             let tlCtrlPoint2 = CGPoint(x: tl.x + topCornerRadius - topCornerRadius * topFactor, y: tr.y)
 
             path.move(to: tl)
-            path.addLine(to: tr)  // Top edge
+            path.addLine(to: tr) // Top edge
 
             path.addCurve(
                 to: CGPoint(x: tr.x - topCornerRadius, y: tr.y + topCornerRadius),
                 control1: trCtrlPoint1,
-                control2: trCtrlPoint2)
+                control2: trCtrlPoint2
+            )
 
             path.addLine(to: CGPoint(x: br.x - topCornerRadius, y: br.y - bottomCornerRadius))
 
             path.addCurve(
                 to: CGPoint(x: br.x - topCornerRadius - bottomCornerRadius, y: br.y),
                 control1: brCtrlPoint1,
-                control2: brCtrlPoint2)
+                control2: brCtrlPoint2
+            )
 
             path.addLine(to: CGPoint(x: bl.x + topCornerRadius + bottomCornerRadius, y: bl.y))
 
             path.addCurve(
                 to: CGPoint(x: bl.x + topCornerRadius, y: bl.y - bottomCornerRadius),
                 control1: blCtrlPoint1,
-                control2: blCtrlPoint2)
+                control2: blCtrlPoint2
+            )
 
             path.addLine(to: CGPoint(x: tl.x + topCornerRadius, y: tl.y + topCornerRadius))
 

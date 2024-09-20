@@ -13,7 +13,7 @@ The code has been refactored from [NotchDrop](https://github.com/Lakr233/NotchDr
 NotchNotification supports all AppKit platforms and works even on devices without a notch.
 
 ```swift
-platforms: [.macOS(.v13)],
+platforms: [.macOS(.v12)],
 ```
 
 ## Usage
@@ -22,7 +22,7 @@ To add this package to your project:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/Lakr233/NotchNotification.git", from: "1.0.0"),
+    .package(url: "https://github.com/Lakr233/NotchNotification.git", from: "1.1.0"),
 ]
 ```
 
