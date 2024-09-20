@@ -16,5 +16,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Setup Xcode 16
+      run: sudo xcode-select -s /Applications/Xcode_16.app
     - name: Run Test Build
       run: ./Scripts/test.build.sh
