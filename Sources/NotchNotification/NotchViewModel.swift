@@ -9,7 +9,7 @@ class NotchViewModel: NSObject, ObservableObject {
     let bodyView: AnyView
     let cornerRadius: CGFloat
     let animated: Bool
-    
+
     var referencedWindow: NotchWindowController? = nil
 
     init(screen: NSScreen, headerLeadingView: AnyView, headerTrailingView: AnyView, bodyView: AnyView, animated: Bool) {
