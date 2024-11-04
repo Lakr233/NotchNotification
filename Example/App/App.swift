@@ -14,7 +14,7 @@ struct App: SwiftUI.App {
         WindowGroup {
             panel
                 .frame(
-                    minWidth: 400, idealWidth: 400, maxWidth: 800,
+                    minWidth: 500, idealWidth: 500, maxWidth: 800,
                     minHeight: 200, idealHeight: 200, maxHeight: 800,
                     alignment: .center
                 )
@@ -73,6 +73,14 @@ struct App: SwiftUI.App {
                             Text(message).underline()
                             Image(systemName: "hand.point.left")
                         },
+                        interval: interval
+                    )
+                }
+                Button("Spying!") {
+                    NotchNotification.present(
+                        leadingView: Rectangle().hidden().frame(width: 4),
+                        trailingView: Rectangle().hidden().frame(width: 4).overlay(Circle().frame(width: 4, height: 4).foregroundStyle(.green)),
+                        bodyView: EmptyView().frame(width: 0, height: 0),
                         interval: interval
                     )
                 }

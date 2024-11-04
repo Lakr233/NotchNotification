@@ -30,7 +30,8 @@ public enum NotchNotification {
     public static func present(
         leadingView: some View = Image(systemName: "bell.fill"),
         trailingView: some View = EmptyView(),
-        bodyView: some View, interval: TimeInterval = 3
+        bodyView: some View = EmptyView().frame(width: 0, height: 0),
+        interval: TimeInterval = 3
     ) {
         let leadingView = leadingView
             .foregroundStyle(.white)

@@ -16,7 +16,7 @@ extension NSScreen {
         let rightPadding = auxiliaryTopRightArea?.width ?? 0
         guard leftPadding > 0, rightPadding > 0 else { return .zero }
         let notchWidth = fullWidth - leftPadding - rightPadding
-        return CGSize(width: notchWidth, height: notchHeight)
+        return CGSize(width: ceil(notchWidth), height: ceil(notchHeight + 1))
     }
 
     var headerHeight: CGFloat {
@@ -24,14 +24,6 @@ extension NSScreen {
             notchSize.height
         } else {
             32
-        }
-    }
-
-    var headerSpacingWidth: CGFloat {
-        if notchSize.width > 0 {
-            notchSize.width
-        } else {
-            128
         }
     }
 

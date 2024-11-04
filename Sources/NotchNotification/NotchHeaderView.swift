@@ -8,21 +8,21 @@
 import SwiftUI
 
 struct NotchHeaderView: View {
-    let spacing: CGFloat
+    let deviceNotchWidth: CGFloat
     let height: CGFloat
     let leadingView: AnyView
     let trailingView: AnyView
 
-    init(spacing: CGFloat, height: CGFloat, leadingView: AnyView, trailingView: AnyView) {
-        self.spacing = spacing
+    init(deviceNotchWidth: CGFloat, height: CGFloat, leadingView: AnyView, trailingView: AnyView) {
+        self.deviceNotchWidth = deviceNotchWidth
         self.height = height
         self.leadingView = leadingView
         self.trailingView = trailingView
     }
 
-    init(spacing: CGFloat, height: CGFloat, leadingView: some View, trailingView: some View) {
+    init(deviceNotchWidth: CGFloat, height: CGFloat, leadingView: some View, trailingView: some View) {
         self.init(
-            spacing: spacing,
+            deviceNotchWidth: deviceNotchWidth,
             height: height,
             leadingView: AnyView(leadingView),
             trailingView: AnyView(trailingView)
@@ -33,7 +33,7 @@ struct NotchHeaderView: View {
         HStack(alignment: .center, spacing: 0) {
             leadingView
                 .frame(width: height, height: height)
-            Spacer().frame(minWidth: spacing)
+            Spacer().frame(minWidth: deviceNotchWidth)
             trailingView
                 .frame(width: height, height: height)
         }

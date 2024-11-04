@@ -74,7 +74,6 @@ struct NotificationContext {
         window.window?.setFrameOrigin(topRect.origin)
         window.window?.setContentSize(topRect.size)
 
-//        window.showWindow(nil)
         window.window?.orderFront(nil)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {

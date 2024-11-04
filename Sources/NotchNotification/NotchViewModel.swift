@@ -15,26 +15,30 @@ class NotchViewModel: NSObject, ObservableObject {
 
     init(screen: NSScreen, headerLeadingView: AnyView, headerTrailingView: AnyView, bodyView: AnyView) {
         let headerView = NotchHeaderView(
-            spacing: screen.headerSpacingWidth + 64,
+            deviceNotchWidth: screen.notchSize.width,
             height: screen.headerHeight,
             leadingView: headerLeadingView,
             trailingView: headerTrailingView
         )
 
-        self.headerView = AnyView(headerView.padding(.horizontal, 8))
-        self.bodyView = AnyView(
-            bodyView.padding(.bottom, 16).padding(.horizontal, 16))
+        self.headerView = AnyView(headerView)
 
-        let headerFittingSize = NSHostingView(rootView: self.headerView)
-            .fittingSize
+        let originalBodyFittingSize = NSHostingView(rootView: bodyView).fittingSize
+        if originalBodyFittingSize.height < 1, originalBodyFittingSize.width < 1 {
+            self.bodyView = AnyView(bodyView) // should be empty, omit bodyView
+        } else {
+            self.bodyView = AnyView(bodyView.padding(.bottom, 16).padding(.horizontal, 16))
+        }
+
+        let headerFittingSize = NSHostingView(rootView: self.headerView).fittingSize
         let bodyFittingSize = NSHostingView(rootView: self.bodyView).fittingSize
 
         notchOpenedSize = .init(
-            width: max(headerFittingSize.width, bodyFittingSize.width),
-            height: max(headerFittingSize.height + bodyFittingSize.height, 0)
+            width: ceil(max(headerFittingSize.width, bodyFittingSize.width)),
+            height: ceil(max(headerFittingSize.height + bodyFittingSize.height, 0))
         )
 
-        cornerRadius = min(notchOpenedSize.height / 3, 16)
+        cornerRadius = min(ceil(notchOpenedSize.height / 3), 16)
 
         super.init()
     }
