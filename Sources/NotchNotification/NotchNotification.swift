@@ -31,7 +31,8 @@ public enum NotchNotification {
         leadingView: some View = Image(systemName: "bell.fill"),
         trailingView: some View = EmptyView(),
         bodyView: some View = EmptyView().frame(width: 0, height: 0),
-        interval: TimeInterval = 3
+        interval: TimeInterval = 3,
+        animated: Bool = true
     ) {
         let leadingView = leadingView
             .foregroundStyle(.white)
@@ -46,7 +47,8 @@ public enum NotchNotification {
         guard let context = NotificationContext(
             headerLeadingView: leadingView,
             headerTrailingView: trailingView,
-            bodyView: bodyView
+            bodyView: bodyView,
+            animated: animated
         ) else {
             return
         }

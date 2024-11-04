@@ -81,7 +81,8 @@ struct App: SwiftUI.App {
                         leadingView: Rectangle().hidden().frame(width: 4),
                         trailingView: Rectangle().hidden().frame(width: 4).overlay(Circle().frame(width: 4, height: 4).foregroundStyle(.green)),
                         bodyView: EmptyView().frame(width: 0, height: 0),
-                        interval: interval
+                        interval: interval,
+                        animated: false
                     )
                 }
             }

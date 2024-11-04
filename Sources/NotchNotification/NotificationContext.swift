@@ -14,19 +14,20 @@ struct NotificationContext {
     let headerLeadingView: AnyView
     let headerTrailingView: AnyView
     let bodyView: AnyView
+    let animated: Bool
 
-    init(screen: NSScreen, headerLeadingView: AnyView, headerTrailingView: AnyView, bodyView: AnyView) {
+    init(screen: NSScreen, headerLeadingView: AnyView, headerTrailingView: AnyView, bodyView: AnyView, animated: Bool) {
         self.screen = screen
         self.headerLeadingView = headerLeadingView
         self.headerTrailingView = headerTrailingView
         self.bodyView = bodyView
+        self.animated = animated
     }
 
-    init?(headerLeadingView: AnyView, headerTrailingView: AnyView, bodyView: AnyView) {
+    init?(headerLeadingView: AnyView, headerTrailingView: AnyView, bodyView: AnyView, animated: Bool) {
         let mouseLocation = NSEvent.mouseLocation
         let screens = NSScreen.screens
-        let screenWithMouse =
-            (screens.first { NSMouseInRect(mouseLocation, $0.frame, false) })
+        let screenWithMouse = screens.first { NSMouseInRect(mouseLocation, $0.frame, false) }
 
         guard let screen = screenWithMouse ?? NSScreen.buildin else {
             return nil
@@ -35,17 +36,22 @@ struct NotificationContext {
             screen: screen,
             headerLeadingView: headerLeadingView,
             headerTrailingView: headerTrailingView,
-            bodyView: bodyView
+            bodyView: bodyView,
+            animated: animated
         )
     }
 
     init?(
-        headerLeadingView: some View, headerTrailingView: some View, bodyView: some View
+        headerLeadingView: some View,
+        headerTrailingView: some View,
+        bodyView: some View,
+        animated: Bool = true
     ) {
         self.init(
             headerLeadingView: AnyView(headerLeadingView),
             headerTrailingView: AnyView(headerTrailingView),
-            bodyView: AnyView(bodyView)
+            bodyView: AnyView(bodyView),
+            animated: animated
         )
     }
 
@@ -57,7 +63,8 @@ struct NotificationContext {
             screen: screen,
             headerLeadingView: headerLeadingView,
             headerTrailingView: headerTrailingView,
-            bodyView: bodyView
+            bodyView: bodyView,
+            animated: animated
         )
         let view = NotchView(vm: viewModel)
         let viewController = NotchViewController(view)

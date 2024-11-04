@@ -5,15 +5,14 @@ import SwiftUI
 
 class NotchViewModel: NSObject, ObservableObject {
     let notchOpenedSize: CGSize
-
     let headerView: AnyView
     let bodyView: AnyView
-
     let cornerRadius: CGFloat
-
+    let animated: Bool
+    
     var referencedWindow: NotchWindowController? = nil
 
-    init(screen: NSScreen, headerLeadingView: AnyView, headerTrailingView: AnyView, bodyView: AnyView) {
+    init(screen: NSScreen, headerLeadingView: AnyView, headerTrailingView: AnyView, bodyView: AnyView, animated: Bool) {
         let headerView = NotchHeaderView(
             deviceNotchWidth: screen.notchSize.width,
             height: screen.headerHeight,
@@ -39,26 +38,38 @@ class NotchViewModel: NSObject, ObservableObject {
         )
 
         cornerRadius = min(ceil(notchOpenedSize.height / 3), 16)
+        self.animated = animated
 
         super.init()
     }
 
     convenience init(
-        screen: NSScreen, headerLeadingView: some View, headerTrailingView: some View, bodyView: some View
+        screen: NSScreen,
+        headerLeadingView: some View,
+        headerTrailingView: some View,
+        bodyView: some View,
+        animated: Bool
     ) {
         self.init(
             screen: screen,
             headerLeadingView: AnyView(headerLeadingView),
             headerTrailingView: AnyView(headerTrailingView),
-            bodyView: AnyView(bodyView)
+            bodyView: AnyView(bodyView),
+            animated: animated
         )
     }
 
-    let animation: Animation = .interactiveSpring(
-        duration: 0.5,
-        extraBounce: 0.25,
-        blendDuration: 0.125
-    )
+    var animation: Animation? {
+        if animated {
+            .interactiveSpring(
+                duration: 0.5,
+                extraBounce: 0.25,
+                blendDuration: 0.125
+            )
+        } else {
+            nil
+        }
+    }
 
     enum Status: String, Codable, Hashable, Equatable {
         case closed
