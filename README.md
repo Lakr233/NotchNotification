@@ -55,9 +55,10 @@ NotchNotification.present(
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
----
-
-© 2024 Lakr Aream. All Rights Reserved.
 ## Sponsor
 
 [LookInside](https://lookinside-app.com/) helps you inspect a running iOS or macOS app UI from your Mac.
+
+---
+
+© 2024 Lakr Aream. All Rights Reserved.
