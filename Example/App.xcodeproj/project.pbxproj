@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5019F5932C9C39D700BB67C6 /* NotchNotification in Frameworks */ = {isa = PBXBuildFile; productRef = 5019F5922C9C39D700BB67C6 /* NotchNotification */; };
+		7E2AB8B60C869C3EA6190546 /* LookInsideServer in Frameworks */ = {isa = PBXBuildFile; productRef = EEDEA6DDB09284AF7D5BF238 /* LookInsideServer */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -17,6 +18,8 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		5019F54F2C9C38D700BB67C6 /* App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
 			path = App;
 			sourceTree = "<group>";
 		};
@@ -28,6 +31,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5019F5932C9C39D700BB67C6 /* NotchNotification in Frameworks */,
+				7E2AB8B60C869C3EA6190546 /* LookInsideServer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +83,7 @@
 			name = App;
 			packageProductDependencies = (
 				5019F5922C9C39D700BB67C6 /* NotchNotification */,
+				EEDEA6DDB09284AF7D5BF238 /* LookInsideServer */,
 			);
 			productName = NotchNotification;
 			productReference = 5019F54D2C9C38D700BB67C6 /* App.app */;
@@ -108,6 +113,9 @@
 			);
 			mainGroup = 5019F5442C9C38D700BB67C6;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				03C2D7EFF2A5B861189BA2DC /* XCRemoteSwiftPackageReference "LookInside-Release" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5019F54E2C9C38D700BB67C6 /* Products */;
 			projectDirPath = "";
@@ -296,6 +304,10 @@
 				DEVELOPMENT_TEAM = 964G86XT2P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_SOURCE_FILE_NAMES = (
+					"$(inherited)",
+					"LookInsideServer*",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -334,10 +346,26 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		03C2D7EFF2A5B861189BA2DC /* XCRemoteSwiftPackageReference "LookInside-Release" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/LookInsideApp/LookInside-Release.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		5019F5922C9C39D700BB67C6 /* NotchNotification */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = NotchNotification;
+		};
+		EEDEA6DDB09284AF7D5BF238 /* LookInsideServer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03C2D7EFF2A5B861189BA2DC /* XCRemoteSwiftPackageReference "LookInside-Release" */;
+			productName = LookInsideServer;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -58,3 +58,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ---
 
 © 2024 Lakr Aream. All Rights Reserved.
+## Sponsor
+
+[LookInside](https://lookinside-app.com/) helps you inspect a running iOS or macOS app UI from your Mac.
